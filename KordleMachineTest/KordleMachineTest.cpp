@@ -44,12 +44,12 @@ namespace KordleMachineTest
 
 			queue<wstring> expected;
 			queue<wstring> actual;
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤¡¤¿)"s);
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤¡¤Ì)"s);
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤¡¤Ó)"s);
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤§¤Ó)"s);
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤µ¤Ó)"s);
-			expected.push(LR"(¤¡¤¡¤¿¤¡¤¸¤Ó)"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤¡¤¿"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤¡¤Ì"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤¡¤Ó"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤§¤Ó"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤µ¤Ó"s);
+			expected.push(L"¤¡¤¡¤¿¤¡¤¸¤Ó"s);
 
 			for (int i = 0; i < expected.size(); i++)
 			{
@@ -70,7 +70,7 @@ namespace KordleMachineTest
 		{
 			KordleSolver solver(new KordleFirstWordStrategy());
 
-			wstring queried = LR"(¤·¤Ó¤²¤µ¤Ì¤©)"s;
+			wstring queried = L"¤·¤Ó¤²¤µ¤Ì¤©"s;
 			array<bool, KordleMachine::KORDLE_LENGTH> yellows;
 			for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
 			{

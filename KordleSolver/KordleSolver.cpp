@@ -52,6 +52,8 @@ bool KordleSolver::isValid(wstring target, KordleResult result)
 
 		if (result.result.at(i) == KordleColor::YELLOW)
 		{
+			if (result.queriedString.at(i) == target.at(i))
+				return false;
 			bool flag = false;
 			for (int j = 0; j < KordleMachine::KORDLE_LENGTH; j++)
 			{
@@ -61,6 +63,12 @@ bool KordleSolver::isValid(wstring target, KordleResult result)
 				}
 			}
 			if (!flag)
+				return false;
+		}
+
+		if (result.result.at(i) == KordleColor::BLACK)
+		{
+			if (result.queriedString.at(i) == target.at(i))
 				return false;
 		}
 	}

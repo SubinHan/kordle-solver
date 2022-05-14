@@ -1,32 +1,65 @@
 #include <iostream>
 #include <string>
 #include "KordleMachine.h"
+#include "KordleSolver.h"
+#include "KordleEntropyStrategy.h"
+#include "KordleFirstWordStrategy.h"
 
 using namespace std;
 
+void printResult(KordleResult result);
+
 int main()
 {
-	wstring a = L"안녕하세요.";
-	wstring b = L"ㄱㅜㄴㄷㅏㅣ";
-	std::locale::global(std::locale(""));
-	wcout << a[0] << a[1] << a[2] << a[3] << a[4] << endl;
-	wcout << a << endl;
+	wcin.imbue(locale("korean"));
+	wcout.imbue(locale("korean"));
 
-	wcout << b[0] << b[1] << b[2] << b[3] << b[4] << b[5] << endl;
-	wcout << b << endl;
+	cout << "init.." << endl;
+	KordleMachine machine(L"ㄱㅜㄴㄷㅏㅣ"s);
+	cout << "machine init completed" << endl;
+	KordleSolver solver(new KordleEntropyStrategy());
+	cout << "solver init completed" << endl;
 
-	if (a[0] == '안')
-		cout << "atrue" << endl;
-	if (b[0] == 'ㄱ')
-		cout << "btrue1" << endl;
-	if (b[0] == L'ㄱ')
-		cout << "btrue2" << endl;
+	KordleResult* result;
 
-	KordleMachine machine = KordleMachine(L"ㄱㅜㄴㄷㅏㅣ"s);
-	KordleResult result1 = machine.queryKordle(L"ㅈㅓㄹㅈㅓㅇ"s);
-	KordleResult result2 = machine.queryKordle(L"ㄱㅕㅣㄷㅏㄴ"s);
+	array<bool, KordleMachine::KORDLE_LENGTH> yellows1({ false, false, true, false, false, false });
+	array<bool, KordleMachine::KORDLE_LENGTH> greens1({true, false, false, false, true, false});
+	KordleResult first = KordleMachine::makeKordleResult(greens1, yellows1, L"ㄱㄱㅣㅇㅏㅁ");
+	solver.inputResult(first);
 
-	if (result1.result[0] == KordleColor::BLACK)
-		cout << "rtrue1" << endl;
+	wstring best = solver.calculateNextWord();
+	wcout << best << endl;
+	result = new KordleResult(machine.queryKordle(best));
+	printResult(*result);
+	solver.inputResult(*result);
+	delete result;
+
+	best = solver.calculateNextWord();
+	wcout << best << endl;
+	result = new KordleResult(machine.queryKordle(best));
+	printResult(*result);
+	solver.inputResult(*result);
+	delete result;
+
+	best = solver.calculateNextWord();
+	wcout << best << endl;
+	result = new KordleResult(machine.queryKordle(best));
+	printResult(*result);
+	delete result;
+
 	return 0;
+}
+
+void printResult(KordleResult result)
+{
+	for (KordleColor color : result.result)
+	{
+		if (color == KordleColor::BLACK)
+			cout << "B";
+		if (color == KordleColor::YELLOW)
+			cout << "Y";
+		if (color == KordleColor::GREEN)
+			cout << "G";
+	}
+	cout << endl;
 }
