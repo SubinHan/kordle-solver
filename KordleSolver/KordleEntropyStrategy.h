@@ -3,5 +3,9 @@
 
 class KordleEntropyStrategy : public KordleStrategy
 {
-	virtual wstring calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords);
+private:
+	const wstring FIRST_BEST = L"¤¡¤¡¤Ó¤·¤¿¤±"s;
+
+public:
+	virtual wstring calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords, int countQueried);
 };

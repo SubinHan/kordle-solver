@@ -11,6 +11,7 @@ KordleSolver::KordleSolver(KordleStrategy* strategy)
 	WordBank* bank = WordBank::getInstance();
 	this->queryableWords = bank->getQueryableWords();
 	this->validWords = bank->getValidWords();
+	this->countQueried = 0;
 }
 
 KordleSolver::~KordleSolver()
@@ -20,7 +21,7 @@ KordleSolver::~KordleSolver()
 
 wstring KordleSolver::calculateNextWord()
 {
-	return strategy->calculateNextWord(this->validWords, this->queryableWords);
+	return strategy->calculateNextWord(this->validWords, this->queryableWords, countQueried);
 }
 
 void KordleSolver::inputResult(KordleResult result)
@@ -36,6 +37,7 @@ void KordleSolver::inputResult(KordleResult result)
 			iter++;
 		}
 	}
+	countQueried++;
 }
 
 bool KordleSolver::isValid(wstring target, KordleResult result)

@@ -13,6 +13,7 @@ private:
 	KordleStrategy* strategy;
 	vector<wstring> validWords;
 	vector<wstring> queryableWords;
+	int countQueried;
 
 private:
 	bool isValid(wstring target, KordleResult result);

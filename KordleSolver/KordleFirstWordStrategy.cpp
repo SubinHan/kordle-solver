@@ -1,6 +1,6 @@
 #include "KordleFirstWordStrategy.h"
 
-wstring KordleFirstWordStrategy::calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords)
+wstring KordleFirstWordStrategy::calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords, int countQueried)
 {
 	if (validWords.size() < 1)
 		return wstring();

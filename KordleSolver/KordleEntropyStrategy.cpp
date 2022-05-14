@@ -1,10 +1,15 @@
 #include "KordleEntropyStrategy.h"
 #include "KordleMachine.h"
 
-wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords)
+wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords, int countQueried)
 {
 	if (validWords.empty())
 		return wstring();
+
+	if (countQueried == 0)
+	{
+		return FIRST_BEST;
+	}
 
 	if (validWords.size() < 30)
 	{
