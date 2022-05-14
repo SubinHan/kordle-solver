@@ -60,6 +60,35 @@ namespace KordleMachineTest
 			Assert::IsTrue(result3.result[4] == KordleColor::BLACK);
 			Assert::IsTrue(result3.result[5] == KordleColor::BLACK);
 		}
+
+		TEST_METHOD(kordleMachineTest3)
+		{
+			KordleMachine machine = KordleMachine(L"丑丑中中丑丑"s);
+			KordleResult result1 = machine.queryKordle(L"中中丑丑中中"s);
+			KordleResult result2 = machine.queryKordle(L"中中中中中中"s);
+			KordleResult result3 = machine.queryKordle(L"丑丑丑丑丑丑"s);
+
+			Assert::IsTrue(result1.result[0] == KordleColor::YELLOW);
+			Assert::IsTrue(result1.result[1] == KordleColor::YELLOW);
+			Assert::IsTrue(result1.result[2] == KordleColor::YELLOW);
+			Assert::IsTrue(result1.result[3] == KordleColor::YELLOW);
+			Assert::IsTrue(result1.result[4] == KordleColor::YELLOW);
+			Assert::IsTrue(result1.result[5] == KordleColor::YELLOW);
+
+			Assert::IsTrue(result2.result[0] == KordleColor::BLACK);
+			Assert::IsTrue(result2.result[1] == KordleColor::BLACK);
+			Assert::IsTrue(result2.result[2] == KordleColor::GREEN);
+			Assert::IsTrue(result2.result[3] == KordleColor::GREEN);
+			Assert::IsTrue(result2.result[4] == KordleColor::BLACK);
+			Assert::IsTrue(result2.result[5] == KordleColor::BLACK);
+
+			Assert::IsTrue(result3.result[0] == KordleColor::GREEN);
+			Assert::IsTrue(result3.result[1] == KordleColor::GREEN);
+			Assert::IsTrue(result3.result[2] == KordleColor::BLACK);
+			Assert::IsTrue(result3.result[3] == KordleColor::BLACK);
+			Assert::IsTrue(result3.result[4] == KordleColor::GREEN);
+			Assert::IsTrue(result3.result[5] == KordleColor::GREEN);
+		}
 	};
 
 	TEST_CLASS(InitTest)
