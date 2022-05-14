@@ -6,10 +6,10 @@ wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vec
 	if (validWords.empty())
 		return wstring();
 
-	if (countQueried == 0)
+	/*if (countQueried == 0)
 	{
 		return FIRST_BEST;
-	}
+	}*/
 
 	if (validWords.size() < 30)
 	{
@@ -26,9 +26,13 @@ wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vec
 			KordleResult result = KordleMachine::queryKordle(*iter, *iter2);
 			for (KordleColor color : result.result)
 			{
-				if (color != KordleColor::BLACK)
+				if (color == KordleColor::YELLOW)
 				{
 					score++;
+				}
+				if (color == KordleColor::GREEN)
+				{
+					score += 5;
 				}
 			}
 		}

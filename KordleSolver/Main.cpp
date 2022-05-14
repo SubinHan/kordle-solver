@@ -8,6 +8,7 @@
 using namespace std;
 
 void printResult(KordleResult result);
+bool isCorrect(KordleResult result);
 
 int main()
 {
@@ -15,38 +16,29 @@ int main()
 	wcout.imbue(locale("korean"));
 
 	cout << "init.." << endl;
-	KordleMachine machine(L"ぁぬいぇたび"s);
+	KordleMachine machine(L"しでびずぬぉ"s);
 	cout << "machine init completed" << endl;
 	KordleSolver solver(new KordleEntropyStrategy());
 	cout << "solver init completed" << endl;
 
 	KordleResult* result;
 
-	array<bool, KordleMachine::KORDLE_LENGTH> yellows1({ false, false, true, false, false, false });
-	array<bool, KordleMachine::KORDLE_LENGTH> greens1({true, false, false, false, true, false});
-	KordleResult first = KordleMachine::makeKordleResult(greens1, yellows1, L"ぁぁびしたけ");
-	solver.inputResult(first);
+	while (true)
+	{
+		wstring best = solver.calculateNextWord();
+		wcout << best << endl;
+		result = new KordleResult(machine.queryKordle(best));
+		printResult(*result);
+		solver.inputResult(*result);
 
-	wstring best = solver.calculateNextWord();
-	wcout << best << endl;
-	result = new KordleResult(machine.queryKordle(best));
-	printResult(*result);
-	solver.inputResult(*result);
+		if (isCorrect(*result))
+			break;
+
+		delete result;
+	}
+
 	delete result;
-
-	best = solver.calculateNextWord();
-	wcout << best << endl;
-	result = new KordleResult(machine.queryKordle(best));
-	printResult(*result);
-	solver.inputResult(*result);
-	delete result;
-
-	best = solver.calculateNextWord();
-	wcout << best << endl;
-	result = new KordleResult(machine.queryKordle(best));
-	printResult(*result);
-	delete result;
-
+	
 	return 0;
 }
 
@@ -62,4 +54,14 @@ void printResult(KordleResult result)
 			cout << "G";
 	}
 	cout << endl;
+}
+
+bool isCorrect(KordleResult result)
+{
+	for (KordleColor color : result.result)
+	{
+		if (color != KordleColor::GREEN)
+			return false;
+	}
+	return true;
 }

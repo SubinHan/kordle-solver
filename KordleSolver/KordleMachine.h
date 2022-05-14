@@ -15,6 +15,7 @@ public:
 	static const int KORDLE_LENGTH = 6;
 
 private:
+	KordleResult static calculateResult(wstring answer, wstring queryString);
 
 public:
 	KordleMachine() = delete;
