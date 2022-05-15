@@ -15,7 +15,7 @@ bool isCorrect(KordleResult result);
 
 int main()
 {
-	return testAllValid();
+	return interaction();
 }
 
 int interaction()
@@ -23,9 +23,6 @@ int interaction()
 	cout << "init.." << endl;
 	KordleSolver optimized(new KordleEntropyStrategy());
 	cout << "solver init completed" << endl;
-	cout << "optimizing solver.. it takes for minutes" << endl;
-	optimized.optimizeQueryableWords();
-	cout << "solver optimizing completed" << endl;
 
 	while (true)
 	{
@@ -99,9 +96,9 @@ int testAllValid()
 	cout << "init.." << endl;
 	KordleSolver optimized(new KordleEntropyStrategy());
 	cout << "solver init completed" << endl;
-	cout << "optimizing solver.. it takes for minutes" << endl;
-	optimized.optimizeQueryableWords();
-	cout << "solver optimizing completed" << endl;
+	//cout << "optimizing solver.. it takes for minutes" << endl;
+	//optimized.optimizeQueryableWords();
+	//cout << "solver optimizing completed" << endl;
 
 	WordBank* bank = WordBank::getInstance();
 	vector<wstring> validWords = bank->getValidWords();
