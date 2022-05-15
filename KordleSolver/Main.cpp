@@ -26,7 +26,6 @@ int main()
 	vector<wstring> validWords = bank->getValidWords();
 
 	//KordleMachine machine(L"さびいいづけ");
-
 	//wstring best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//KordleResult* result;
@@ -34,42 +33,36 @@ int main()
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
 	//printResult(*result);
 	//optimized.inputResult(*result);
 	//delete result;
-
 	//best = optimized.calculateNextWord();
 	//wcout << best << endl;
 	//result = new KordleResult(machine.queryKordle(best));
@@ -117,7 +110,6 @@ int main()
 		delete result;
 		delete solver;
 	}
-	
 	
 	return 0;
 }

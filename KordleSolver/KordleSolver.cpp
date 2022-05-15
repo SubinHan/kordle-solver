@@ -85,6 +85,11 @@ Cloneable* KordleSolver::clone()
 
 bool KordleSolver::isValid(wstring target, KordleResult result)
 {
+	array<bool, KordleMachine::KORDLE_LENGTH> visited;
+
+	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+		visited[i] = false;
+
 	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
 	{
 		if (result.result.at(i) == KordleColor::GREEN)
@@ -93,8 +98,12 @@ bool KordleSolver::isValid(wstring target, KordleResult result)
 			{
 				return false;
 			}
+			visited[i] = true;
 		}
+	}
 
+	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+	{
 		if (result.result.at(i) == KordleColor::YELLOW)
 		{
 			if (result.queriedString.at(i) == target.at(i))
@@ -102,9 +111,11 @@ bool KordleSolver::isValid(wstring target, KordleResult result)
 			bool flag = false;
 			for (int j = 0; j < KordleMachine::KORDLE_LENGTH; j++)
 			{
-				if (target.at(j) == result.queriedString.at(i))
+				if (target.at(j) == result.queriedString.at(i) && !visited[j])
 				{
 					flag = true;
+					visited[j] = true;
+					break;
 				}
 			}
 			if (!flag)
