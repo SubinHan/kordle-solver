@@ -124,8 +124,11 @@ bool KordleSolver::isValid(wstring target, KordleResult result)
 
 		if (result.result.at(i) == KordleColor::BLACK)
 		{
-			if (result.queriedString.at(i) == target.at(i))
-				return false;
+			for (int j = 0; j < KordleMachine::KORDLE_LENGTH; j++)
+			{
+				if (result.queriedString.at(i) == target.at(j) && !visited[j])
+					return false;
+			}
 		}
 	}
 	return true;

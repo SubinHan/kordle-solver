@@ -8,10 +8,90 @@
 
 using namespace std;
 
+int testAllValid();
+int interaction();
 void printResult(KordleResult result);
 bool isCorrect(KordleResult result);
 
 int main()
+{
+	return testAllValid();
+}
+
+int interaction()
+{
+	cout << "init.." << endl;
+	KordleSolver optimized(new KordleEntropyStrategy());
+	cout << "solver init completed" << endl;
+	cout << "optimizing solver.. it takes for minutes" << endl;
+	optimized.optimizeQueryableWords();
+	cout << "solver optimizing completed" << endl;
+
+	while (true)
+	{
+		cout << endl;
+		cout << "==NEW GAME==" << endl;
+		KordleSolver* solver = static_cast<KordleSolver*>(optimized.clone());
+		while (true)
+		{
+			wstring best = solver->calculateNextWord();
+			wcout << "The best word to query: " << best << endl;
+
+			array<KordleColor, KordleMachine::KORDLE_LENGTH> kordleResult;
+			while (true)
+			{
+				string result;
+				bool isInvalid = false;
+				cout << "Please enter the result: ";
+				cin >> result;
+
+				if (result.size() != 6)
+					isInvalid = true;
+
+				for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+				{
+					switch (result[i])
+					{
+					case 'G':
+						kordleResult[i] = KordleColor::GREEN;
+						break;
+					case 'Y':
+						kordleResult[i] = KordleColor::YELLOW;
+						break;
+					case 'B':
+						kordleResult[i] = KordleColor::BLACK;
+						break;
+					default:
+						isInvalid = true;
+						break;
+					}
+				}
+
+				if (isInvalid)
+					cout << "Invalid input, please enter again" << endl;
+				else
+					break;
+			}
+
+			bool completed = true;
+			for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+			{
+				if (kordleResult[i] != KordleColor::GREEN)
+					completed = false;
+			}
+
+			if (completed)
+				break;
+
+			KordleResult result(kordleResult, best);
+			solver->inputResult(result);
+		}
+	}
+
+	return 0;
+}
+
+int testAllValid()
 {
 	wcin.imbue(locale("korean"));
 	wcout.imbue(locale("korean"));
@@ -19,6 +99,7 @@ int main()
 	cout << "init.." << endl;
 	KordleSolver optimized(new KordleEntropyStrategy());
 	cout << "solver init completed" << endl;
+	cout << "optimizing solver.. it takes for minutes" << endl;
 	optimized.optimizeQueryableWords();
 	cout << "solver optimizing completed" << endl;
 

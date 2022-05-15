@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WordCalculator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="KordleMachine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -38,9 +35,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WordCalculator.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="KordleMachine.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
