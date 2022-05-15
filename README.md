@@ -19,3 +19,7 @@ If you want to start new game, just enter *GGGGGG*
 It doesn't handle invalid inputs well.. so may occurs an error when you entered invalid input.
 
 Video: https://www.youtube.com/watch?v=jl6xeyliAn4
+
+
+<br><br>
+*This project is licensed under the terms of the MIT license.*
