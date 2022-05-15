@@ -14,7 +14,7 @@ Just run KordleSolver.exe in bin directory and enter the result!
 
 Input is case sensitive. You have to enter in upper cases. For example, *GRRBYB*
 
-If you want to start new game, just enter *GGGGGG*.
+If you want to start new game, just enter *GGGGGG*
 
 It doesn't handle invalid inputs well.. so may occurs error when you entered invalid input.
 
