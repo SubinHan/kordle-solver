@@ -1,15 +1,16 @@
 #include "KordleEntropyStrategy.h"
 #include "KordleMachine.h"
+#include <cmath>
 
 wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vector<wstring> queryableWords, int countQueried)
 {
 	if (validWords.empty())
 		return wstring();
 
-	/*if (countQueried == 0)
+	if (countQueried == 0)
 	{
 		return FIRST_BEST;
-	}*/
+	}
 
 	if (validWords.size() < 30)
 	{
@@ -45,4 +46,9 @@ wstring KordleEntropyStrategy::calculateNextWord(vector<wstring> validWords, vec
 	}
 
 	return queryableWords.at(maxIndex);
+}
+
+Cloneable* KordleEntropyStrategy::clone()
+{
+	return new KordleEntropyStrategy();
 }

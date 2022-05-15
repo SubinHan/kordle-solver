@@ -4,6 +4,7 @@
 #include "KordleSolver.h"
 #include "KordleEntropyStrategy.h"
 #include "KordleFirstWordStrategy.h"
+#include "WordBank.h"
 
 using namespace std;
 
@@ -16,28 +17,107 @@ int main()
 	wcout.imbue(locale("korean"));
 
 	cout << "init.." << endl;
-	KordleMachine machine(L"しでびずぬぉ"s);
-	cout << "machine init completed" << endl;
-	KordleSolver solver(new KordleEntropyStrategy());
+	KordleSolver optimized(new KordleEntropyStrategy());
 	cout << "solver init completed" << endl;
+	optimized.optimizeQueryableWords();
+	cout << "solver optimizing completed" << endl;
 
-	KordleResult* result;
+	WordBank* bank = WordBank::getInstance();
+	vector<wstring> validWords = bank->getValidWords();
 
-	while (true)
+	//KordleMachine machine(L"さびいいづけ");
+
+	//wstring best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//KordleResult* result;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	//best = optimized.calculateNextWord();
+	//wcout << best << endl;
+	//result = new KordleResult(machine.queryKordle(best));
+	//printResult(*result);
+	//optimized.inputResult(*result);
+	//delete result;
+
+	int sumCount = 0;
+	int maxCount = 0;
+
+	for (vector<wstring>::iterator iter = validWords.begin(); iter != validWords.end(); iter++)
 	{
-		wstring best = solver.calculateNextWord();
-		wcout << best << endl;
-		result = new KordleResult(machine.queryKordle(best));
-		printResult(*result);
-		solver.inputResult(*result);
+		KordleSolver *solver = static_cast<KordleSolver*>(optimized.clone());
 
-		if (isCorrect(*result))
-			break;
+		KordleMachine machine(*iter);
+		wcout << L"solution word: "s << *iter << endl;
+		KordleResult* result;
+
+		while (true)
+		{
+			wstring best = solver->calculateNextWord();
+			wcout << best << endl;
+			result = new KordleResult(machine.queryKordle(best));
+			printResult(*result);
+			solver->inputResult(*result);
+
+			if (isCorrect(*result))
+			{
+				cout << "count: " << machine.getCount() << endl;
+				sumCount += machine.getCount();
+				break;
+			}
+
+			delete result;
+		}
+
+		int numSolved = distance(validWords.begin(), iter);
+		double average = (double)sumCount / (double)(numSolved + 1);
+		cout << "solved: " << numSolved << "/" << distance(validWords.begin(), validWords.end()) << endl;
+		cout << "now average: " << average << endl;
+		if (machine.getCount() > maxCount)
+			maxCount = machine.getCount();
+		cout << "max query count: " << maxCount << endl;;
 
 		delete result;
+		delete solver;
 	}
-
-	delete result;
+	
 	
 	return 0;
 }

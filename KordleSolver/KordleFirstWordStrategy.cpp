@@ -6,3 +6,8 @@ wstring KordleFirstWordStrategy::calculateNextWord(vector<wstring> validWords, v
 		return wstring();
 	return validWords.at(0);
 }
+
+Cloneable* KordleFirstWordStrategy::clone()
+{
+	return new KordleFirstWordStrategy();
+}

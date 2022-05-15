@@ -1,4 +1,5 @@
 #pragma once
+#include "Cloneable.h"
 #include "KordleMachine.h"
 #include "KordleStrategy.h"
 #include <vector>
@@ -6,7 +7,7 @@
 
 using namespace std;
 
-class KordleSolver
+class KordleSolver : public Cloneable
 {
 private:
 	KordleMachine* machine;
@@ -22,7 +23,11 @@ public:
 	KordleSolver() = delete;
 	KordleSolver(KordleStrategy* strategy);
 	~KordleSolver();
-	
+
+	void optimizeQueryableWords();
 	wstring calculateNextWord();
 	void inputResult(KordleResult result);
+	void setStrategy(KordleStrategy* strategy);
+
+	virtual Cloneable* clone() override;
 };

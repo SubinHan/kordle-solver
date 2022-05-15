@@ -1,4 +1,5 @@
 #pragma once
+#include "Cloneable.h"
 #include <array>
 #include <string>
 

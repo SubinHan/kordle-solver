@@ -8,6 +8,9 @@
 #include "../Luna.Tools/Utils.cpp"
 #include <string>
 #include <queue>
+#include <ctime>
+#include <chrono>
+#include <format>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -130,6 +133,20 @@ namespace KordleMachineTest
 			Assert::IsTrue(result1.result[3] == KordleColor::BLACK);
 			Assert::IsTrue(result1.result[4] == KordleColor::GREEN);
 			Assert::IsTrue(result1.result[5] == KordleColor::GREEN);
+		}
+
+		TEST_METHOD(kordleMachinePerformanceTest)
+		{
+			auto start = std::chrono::system_clock::now();
+			for (int i = 0; i < 10000; i++)
+			{
+				KordleMachine machine = KordleMachine(L"いぁいいいい"s);
+				KordleResult result1 = machine.queryKordle(L"いいぁぁいい"s);
+			}
+			auto end = std::chrono::system_clock::now();
+
+			chrono::duration<double> elapsed_seconds = end - start;
+			Logger::WriteMessage(to_string(elapsed_seconds.count()).c_str());
 		}
 	};
 

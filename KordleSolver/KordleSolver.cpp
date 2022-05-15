@@ -1,7 +1,7 @@
 #include "KordleSolver.h"
 #include "WordBank.h"
 #include <vector>
-#include <iterator>
+#include <set>
 
 using namespace std;
 
@@ -17,6 +17,34 @@ KordleSolver::KordleSolver(KordleStrategy* strategy)
 KordleSolver::~KordleSolver()
 {
 	delete strategy;
+}
+
+/**
+ * @brief 
+ * It removes the words that contains duplicated characters, in queryable words list. (for performance)
+*/
+void KordleSolver::optimizeQueryableWords()
+{
+	for (vector<wstring>::iterator iter = this->queryableWords.begin(); iter != queryableWords.end();)
+	{
+		bool erased = false;
+		set<wchar_t> visited;
+		for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+		{
+			if (visited.find(iter->at(i)) == visited.end())
+			{
+				visited.insert(iter->at(i));
+			}
+			else
+			{
+				iter = queryableWords.erase(iter);
+				erased = true;
+				break;
+			}
+		}
+		if(!erased)
+			iter++;
+	}
 }
 
 wstring KordleSolver::calculateNextWord()
@@ -38,6 +66,21 @@ void KordleSolver::inputResult(KordleResult result)
 		}
 	}
 	countQueried++;
+}
+
+void KordleSolver::setStrategy(KordleStrategy* strategy)
+{
+	delete this->strategy;
+	this->strategy = strategy;
+}
+
+Cloneable* KordleSolver::clone()
+{
+	KordleSolver* cloned = new KordleSolver(static_cast<KordleStrategy*>(this->strategy->clone()));
+	cloned->queryableWords = this->queryableWords;
+	cloned->validWords = this->validWords;
+	cloned->countQueried = this->countQueried;
+	return cloned;
 }
 
 bool KordleSolver::isValid(wstring target, KordleResult result)

@@ -19,31 +19,34 @@ KordleResult KordleMachine::makeKordleResult(array<bool, KordleMachine::KORDLE_L
 
 KordleResult KordleMachine::calculateResult(wstring answer, wstring queryString)
 {
+	bool visited[KordleMachine::KORDLE_LENGTH];
 	array<KordleColor, KordleMachine::KORDLE_LENGTH> result;
 
 	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+	{
 		result[i] = KordleColor::BLACK;
+		visited[i] = false;
+	}
 
 	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
 	{
 		if (answer[i] == queryString[i])
 		{
 			result[i] = KordleColor::GREEN;
-			continue;
+			visited[i] = true;
 		}
+	}
 
+	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
+	{
+		if (visited[i])
+			continue;
 		for (int j = 0; j < KordleMachine::KORDLE_LENGTH; j++)
 		{
-			if (result[j] != KordleColor::BLACK)
+			if (answer[i] == queryString[j] && result[j] == KordleColor::BLACK)
 			{
-				continue;
-			}
-
-			if (answer[i] == queryString[j])
-			{
-				if (answer[j] == queryString[j])
-					continue;
 				result[j] = KordleColor::YELLOW;
+				visited[i] = true;
 				break;
 			}
 		}
