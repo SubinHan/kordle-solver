@@ -15,15 +15,11 @@ private:
 public:
 	static const int KORDLE_LENGTH = 6;
 
-private:
-	KordleResult static calculateResult(wstring answer, wstring queryString);
-
 public:
 	KordleMachine() = delete;
 	KordleMachine(wstring answer) : answer(answer), count(0) {}
 	KordleResult queryKordle(wstring queryString);
 	static KordleResult queryKordle(wstring answer, wstring queryString);
-	static KordleResult makeKordleResult(array<bool, KordleMachine::KORDLE_LENGTH> resultGreen, array<bool, KordleMachine::KORDLE_LENGTH> resultYellow, wstring queryString);
 	int getCount();
 };
 

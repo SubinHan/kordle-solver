@@ -1,22 +1,5 @@
 #include "KordleMachine.h"
 
-KordleResult KordleMachine::makeKordleResult(array<bool, KordleMachine::KORDLE_LENGTH> resultGreen, array<bool, KordleMachine::KORDLE_LENGTH> resultYellow, wstring queryString)
-{
-	array<KordleColor, KordleMachine::KORDLE_LENGTH> result;
-
-	for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
-	{
-		if (resultGreen[i])
-			result[i] = KordleColor::GREEN;
-		else if (resultYellow[i])
-			result[i] = KordleColor::YELLOW;
-		else
-			result[i] = KordleColor::BLACK;
-	}
-
-	return KordleResult(result, queryString);
-}
-
 KordleResult KordleMachine::queryKordle(wstring queryString)
 {
 	count++;

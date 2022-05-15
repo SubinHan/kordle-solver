@@ -188,17 +188,12 @@ namespace KordleMachineTest
 			KordleSolver solver(new KordleFirstWordStrategy());
 
 			wstring queried = L"しびげさぬぉ"s;
-			array<bool, KordleMachine::KORDLE_LENGTH> yellows;
+			array<KordleColor, KordleMachine::KORDLE_LENGTH> greens;
 			for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
 			{
-				yellows[i] = false;
+				greens[i] = KordleColor::GREEN;
 			}
-			array<bool, KordleMachine::KORDLE_LENGTH> greens;
-			for (int i = 0; i < KordleMachine::KORDLE_LENGTH; i++)
-			{
-				greens[i] = true;
-			}
-			KordleResult result = KordleMachine::makeKordleResult(greens, yellows, queried);
+			KordleResult result(greens, queried);
 			solver.inputResult(result);
 
 			Assert::AreEqual(queried, solver.calculateNextWord());
