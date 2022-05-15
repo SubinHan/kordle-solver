@@ -17,7 +17,13 @@ KordleResult KordleMachine::makeKordleResult(array<bool, KordleMachine::KORDLE_L
 	return KordleResult(result, queryString);
 }
 
-KordleResult KordleMachine::calculateResult(wstring answer, wstring queryString)
+KordleResult KordleMachine::queryKordle(wstring queryString)
+{
+	count++;
+	return queryKordle(answer, queryString);
+}
+
+KordleResult KordleMachine::queryKordle(wstring answer, wstring queryString)
 {
 	bool visited[KordleMachine::KORDLE_LENGTH];
 	array<KordleColor, KordleMachine::KORDLE_LENGTH> result;
@@ -53,17 +59,6 @@ KordleResult KordleMachine::calculateResult(wstring answer, wstring queryString)
 	}
 
 	return KordleResult(result, queryString);
-}
-
-KordleResult KordleMachine::queryKordle(wstring queryString)
-{
-	count++;
-	return queryKordle(answer, queryString);
-}
-
-KordleResult KordleMachine::queryKordle(wstring answer, wstring queryString)
-{
-	return calculateResult(answer, queryString);
 }
 
 int KordleMachine::getCount()
